@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Troca interativa do Java
+echo "Alternativas disponíveis para java:"
+sudo alternatives --config java
+
+echo
+echo "Alternativas disponíveis para javac:"
+sudo alternatives --config javac
+
+# Aguarda um segundo para o usuário finalizar as seleções
+sleep 1
+
+# Detecta o binário atual de java
+JAVA_PATH=$(readlink -f $(which java))
+JAVA_HOME_PATH=$(dirname $(dirname "$JAVA_PATH"))
+
+# Atualiza JAVA_HOME e PATH
+export JAVA_HOME="$JAVA_HOME_PATH"
+export PATH="$JAVA_HOME/bin:$PATH"
+
+echo
+echo "JAVA_HOME foi definido como: $JAVA_HOME"
+echo "Versão atual do java:"
+java -version
+
